@@ -1,0 +1,110 @@
+table DimArtist
+	lineageTag: f3e3f79a-063b-4538-abcf-8ad8591a8516
+
+	column ArtistKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e43855b4-1d0f-42e1-a807-41fa99716b96
+		summarizeBy: none
+		sourceColumn: ArtistKey
+
+	column ArtistName
+		dataType: string
+		lineageTag: d2654e4f-13bf-4d2f-bea9-7eeecd68f903
+		summarizeBy: none
+		sourceColumn: ArtistName
+
+	column Nationality
+		dataType: string
+		lineageTag: c6177c41-6b05-41c4-b0f8-cd609b1d504d
+		summarizeBy: none
+		sourceColumn: Nationality
+
+	column Gender
+		dataType: string
+		lineageTag: 9284ddbb-c0f4-471f-83bf-37cb653ec766
+		summarizeBy: none
+		sourceColumn: Gender
+
+	column NationalityGroup
+		dataType: string
+		lineageTag: ab21c011-02f0-40f8-95cd-29e894ebd4de
+		summarizeBy: none
+		sourceColumn: NationalityGroup
+
+	column LifeStatus
+		dataType: string
+		lineageTag: 0ebc2d9b-623f-407a-847f-82b6fa5fc716
+		summarizeBy: none
+		sourceColumn: LifeStatus
+
+	column HasWikidata
+		dataType: boolean
+		lineageTag: a827cb6e-9f9d-4b8d-b92d-2a321b3c63be
+		summarizeBy: none
+		sourceColumn: HasWikidata
+
+	column HasULAN
+		dataType: boolean
+		lineageTag: 71f02ff7-ef61-4cd5-9b8d-47ff418e5d05
+		summarizeBy: none
+		sourceColumn: HasULAN
+
+	column ArtistBio
+		dataType: string
+		lineageTag: beac8d9f-b1dc-4837-b3bc-eadf845cf85c
+		summarizeBy: none
+		sourceColumn: ArtistBio
+
+	column BirthYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a91359c-7b71-4827-932b-11e2493de34a
+		summarizeBy: none
+		sourceColumn: BirthYear
+
+	column DeathYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 9daefe56-2703-4943-83f7-d6e1d7502c49
+		summarizeBy: none
+		sourceColumn: DeathYear
+
+	column BirthDecade
+		dataType: int64
+		formatString: 0
+		lineageTag: 4caddb6d-8904-4bba-b0f3-af1f5993634c
+		summarizeBy: none
+		sourceColumn: BirthDecade
+
+	column BirthYearLabel
+		dataType: string
+		lineageTag: 07980872-dcb6-4e6e-a844-13369348583d
+		summarizeBy: none
+		sourceColumn: BirthYearLabel
+
+	column DeathYearLabel
+		dataType: string
+		lineageTag: 8fc96961-9f76-4431-86ae-171fe36af00e
+		summarizeBy: none
+		sourceColumn: DeathYearLabel
+
+	column BirthDecadeLabel
+		dataType: string
+		lineageTag: 10d5bdd9-79c9-46a8-8983-2482eca65bc9
+		summarizeBy: none
+		sourceColumn: BirthDecadeLabel
+
+	partition DimArtist = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimArtist.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Blanks = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, {"BirthYear", "DeathYear", "BirthDecade"}),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"ArtistKey", Int64.Type}, {"ArtistName", type text}, {"Nationality", type text}, {"Gender", type text}, {"NationalityGroup", type text}, {"LifeStatus", type text}, {"HasWikidata", type logical}, {"HasULAN", type logical}, {"ArtistBio", type text}, {"BirthYear", Int64.Type}, {"DeathYear", Int64.Type}, {"BirthDecade", Int64.Type}, {"BirthYearLabel", type text}, {"DeathYearLabel", type text}, {"BirthDecadeLabel", type text}}, "en-US")
+				in
+				    Typed
+

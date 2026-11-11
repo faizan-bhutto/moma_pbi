@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+annotation PBI_QueryOrder = ["DimDepartment","DimClassification","DimLocation","DimDate","DimArtist","BridgeArtworkArtist","RawDataFolder","ProcessedFolder"]
+
+ref table DimDepartment
+ref table DimClassification
+ref table DimLocation
+ref table DimDate
+ref table DimArtist
+ref table BridgeArtworkArtist
+ref table FactArtwork
+ref table _Measures
+ref table DimAcquisitionType
+ref table DimMediumGroup
+
+ref cultureInfo en-US
+

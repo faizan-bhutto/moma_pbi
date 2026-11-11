@@ -1,0 +1,29 @@
+table DimMediumGroup
+	lineageTag: 3a795267-e020-4de0-81af-9bb4c6e16ef0
+
+	column MediumGroupKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c68a069a-943a-4d13-96a9-34d96954dd41
+		summarizeBy: none
+		sourceColumn: MediumGroupKey
+
+	column MediumGroup
+		dataType: string
+		lineageTag: 2ad42abd-cc89-42e0-9a2c-5fbe8ac1c49f
+		summarizeBy: none
+		sourceColumn: MediumGroup
+		sortByColumn: MediumGroupKey
+
+	partition DimMediumGroup = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimMediumGroup.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"MediumGroupKey", Int64.Type}, {"MediumGroup", type text}}, "en-US")
+				in
+				    Typed
+

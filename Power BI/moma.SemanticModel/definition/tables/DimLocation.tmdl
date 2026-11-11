@@ -1,0 +1,49 @@
+table DimLocation
+	lineageTag: 173f8819-23a2-47c0-905c-47520ad6288d
+
+	column LocationKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a2032cd3-59c2-49cb-8fd1-b27f41761e06
+		summarizeBy: none
+		sourceColumn: LocationKey
+
+	column Floor
+		dataType: string
+		lineageTag: b36dde5a-58b3-4589-a1c2-ae6427d60e02
+		summarizeBy: none
+		sourceColumn: Floor
+		sortByColumn: FloorSort
+
+	column Gallery
+		dataType: string
+		lineageTag: ba1b1f66-bf60-4c54-9da7-f76855f685d4
+		summarizeBy: none
+		sourceColumn: Gallery
+
+	column GalleryLabel
+		dataType: string
+		lineageTag: aa841861-5173-4ae7-882c-9e43466c38f9
+		summarizeBy: none
+		sourceColumn: GalleryLabel
+
+	column FloorSort
+		dataType: int64
+		isHidden
+		lineageTag: 570515cd-4642-412a-a6f7-5cf6f6297204
+		summarizeBy: none
+		sourceColumn: FloorSort
+
+	partition DimLocation = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimLocation.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"LocationKey", Int64.Type}, {"Floor", type text}, {"Gallery", type text}, {"GalleryLabel", type text}}, "en-US"),
+				    WithSort = Table.AddColumn(Typed, "FloorSort", each if [Floor] = "Not on view" then 99 else if [Floor] = "PS1" then 7 else if [Floor] = "Other" then 8 else Number.FromText([Floor]), Int64.Type)
+				in
+				    WithSort
+

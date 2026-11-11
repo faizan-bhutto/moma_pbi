@@ -1,0 +1,34 @@
+table DimClassification
+	lineageTag: 727ca67a-1974-4d16-b9db-58715ad9af8f
+
+	column ClassificationKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fc055a44-2658-4524-9f96-60ec6f12d991
+		summarizeBy: none
+		sourceColumn: ClassificationKey
+
+	column Classification
+		dataType: string
+		lineageTag: 2ebcf5c8-38c8-4b14-aefb-4d475c892474
+		summarizeBy: none
+		sourceColumn: Classification
+
+	column ClassificationGroup
+		dataType: string
+		lineageTag: af7eb6de-9e20-4cfd-ad0b-b6eac34705ca
+		summarizeBy: none
+		sourceColumn: ClassificationGroup
+
+	partition DimClassification = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimClassification.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"ClassificationKey", Int64.Type}, {"Classification", type text}, {"ClassificationGroup", type text}}, "en-US")
+				in
+				    Typed
+

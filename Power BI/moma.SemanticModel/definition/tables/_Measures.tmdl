@@ -1,0 +1,162 @@
+/// Holds all report measures. No data.
+table _Measures
+	lineageTag: 9b4dcd01-162b-4d94-9e95-093fe46b9115
+
+	/// Number of artworks in the current filter. Counts rows in FactArtwork, one per ObjectID.
+	measure 'Total Artworks' = COUNTROWS(FactArtwork)
+		formatString: #,0
+		displayFolder: Artworks
+		lineageTag: ad7a1d3d-6883-4a4e-92de-b391ef22d4c7
+
+	/// Distinct artists with at least one work in the current filter. Counts on the bridge, so artists with no works are excluded.
+	measure 'Total Artists' = DISTINCTCOUNT(BridgeArtworkArtist[ArtistKey])
+		formatString: 0
+		displayFolder: Artists
+		lineageTag: 0ab45c03-a47d-4fa7-9a14-7efb5ec4afa3
+
+	/// Number of artist-work pairs on the bridge. A work with 2 artists counts twice, so this is higher than Total Artworks.
+	measure 'Artist Credits' = COUNTROWS(BridgeArtworkArtist)
+		formatString: #,0
+		displayFolder: Artists
+		lineageTag: a416b5ce-9f76-4791-8eeb-24e9bb0e72c6
+
+	/// Average number of works credited to each artist. Artist Credits divided by Total Artists.
+	measure 'Artworks per Artist' = DIVIDE([Artist Credits], [Total Artists])
+		formatString: 0.0
+		displayFolder: Artists
+		lineageTag: 711ece19-e683-45bd-a915-b3cc4a913a8b
+
+	/// Share of works marked Cataloged = Y in the source. Cataloged works have a page on the MoMA website.
+	measure '% Cataloged' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[IsCataloged] = TRUE()), [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Data quality
+		lineageTag: 85b03dcc-b81f-408a-9dc2-4eaebbf4ce47
+
+	/// Share of works currently on display, using the OnView column of Artworks.csv (1,210 works).
+	measure '% On View' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[IsOnView] = TRUE()), [Total Artworks])
+		formatString: 0.00%
+		displayFolder: Artworks
+		lineageTag: 31467274-20c2-4dcd-bb9e-ba884795266b
+
+	/// Share of works with at least one credited artist. The rest, mostly Design objects, have no artist.
+	measure '% With Artist' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[HasArtist] = TRUE()), [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Data quality
+		lineageTag: 16090de5-c218-4256-b4b0-365390a0928b
+
+	/// Share of all works credited to 2 or more artists.
+	measure '% Multi-Artist Works' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[IsMultiArtist] = TRUE()), [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Artists
+		lineageTag: adb69c40-76da-47e6-9a1a-5d2391d6f856
+
+	/// Works with a known acquisition date. Works with no date are excluded and counted in Unknown Acquisition Date.
+	measure 'Works Acquired' = CALCULATE([Total Artworks], NOT ISBLANK(FactArtwork[AcquiredDate]))
+		formatString: #,0
+		displayFolder: Acquisitions
+		lineageTag: 352cbb6e-a558-43e1-b5ea-2137539baa87
+
+	/// Running total of Works Acquired up to the latest date in the current filter. Use with DimDate year or date on the axis.
+	measure 'Cumulative Works Acquired' =
+			VAR MaxDate = MAX(DimDate[Date])
+			RETURN CALCULATE([Works Acquired], FILTER(ALL(DimDate), DimDate[Date] <= MaxDate))
+		formatString: #,0
+		displayFolder: Acquisitions
+		lineageTag: a5faf86e-950e-421f-8d1e-a8533214e8e7
+
+	/// Number of different acquisition dates, blanks excluded. Dates are batch-recorded, so this is far smaller than the number of works.
+	measure 'Distinct Acquisition Dates' = DISTINCTCOUNTNOBLANK(FactArtwork[AcquiredDate])
+		formatString: #,0
+		displayFolder: Acquisitions
+		lineageTag: d36aa824-8879-4926-8af2-53a5fb7d81cc
+
+	/// Works with no acquisition date in the source. These do not appear against any DimDate date.
+	measure 'Unknown Acquisition Date' = CALCULATE([Total Artworks], ISBLANK(FactArtwork[AcquiredDate]))
+		formatString: #,0
+		displayFolder: Data quality
+		lineageTag: f0aefb91-7ee4-4b03-b633-5c9f1c8ebc9a
+
+	/// Works with no acquisition date as a share of all works in the current filter.
+	measure '% Unknown Acquisition Date' = DIVIDE([Unknown Acquisition Date], [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Data quality
+		lineageTag: 8ebb8590-6cf9-4492-a1a8-5966538ea90e
+
+	/// Median years between creation and acquisition. Works with an unknown year or acquired before they were created (90 works) are ignored.
+	measure 'Median Age at Acquisition' = MEDIAN(FactArtwork[AgeAtAcquisition])
+		formatString: 0
+		displayFolder: Acquisitions
+		lineageTag: ff4081ee-3d6d-4843-b6d2-e4f8e1816de9
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Female share of artist credits where gender is known. Counts on the bridge, so a work with several artists counts once per artist. Unknown gender is excluded.
+	measure '% Female' = DIVIDE(CALCULATE([Artist Credits], DimArtist[Gender] = "Female"), CALCULATE([Artist Credits], DimArtist[Gender] <> "Unknown"))
+		formatString: 0.0%
+		displayFolder: Artists
+		lineageTag: 1e0f41a4-b281-44f2-99b6-08e2aff0bf65
+
+	/// Distinct artist nationalities in the current filter, excluding Unknown.
+	measure Nationalities = CALCULATE(DISTINCTCOUNT(DimArtist[Nationality]), DimArtist[Nationality] <> "Unknown")
+		formatString: #,0
+		displayFolder: Artists
+		lineageTag: a3234668-6c11-46fc-8d30-6e3c5c9e39ad
+
+	/// Share of works whose Date is a single clean year, with no range, circa or missing date.
+	measure '% Exact Creation Year' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[DateQuality] = "Exact"), [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Data quality
+		lineageTag: 1f0c9fa4-0f26-40ce-8e1b-720c0665e465
+
+	/// Share of works with both height and width recorded and above 0. A 0 in the source means unknown.
+	measure '% With Valid Dimensions' = DIVIDE(CALCULATE([Total Artworks], FactArtwork[HasValidDimensions] = TRUE()), [Total Artworks])
+		formatString: 0.0%
+		displayFolder: Data quality
+		lineageTag: 5aa49d8e-d27f-413b-96b4-1646e9520775
+
+	/// Total Artworks as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Total Artworks (Text)' = FORMAT([Total Artworks], "#,0")
+		displayFolder: Card labels
+		lineageTag: 842b75e7-4b68-4c4a-8c27-4a151d42f1cf
+
+	/// Total Artists as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Total Artists (Text)' = FORMAT([Total Artists], "#,0")
+		displayFolder: Card labels
+		lineageTag: a56017af-bebe-4015-bd7e-371ee4bc259e
+
+	/// Artist Credits as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Artist Credits (Text)' = FORMAT([Artist Credits], "#,0")
+		displayFolder: Card labels
+		lineageTag: 56f66198-09e8-4a74-acbc-02b1aa8c6140
+
+	/// Works Acquired as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Works Acquired (Text)' = FORMAT([Works Acquired], "#,0")
+		displayFolder: Card labels
+		lineageTag: d32ff462-9b25-4768-a64b-c90849da83f2
+
+	/// Unknown Acquisition Date count as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Unknown Acquisition Date (Text)' = FORMAT([Unknown Acquisition Date], "#,0")
+		displayFolder: Card labels
+		lineageTag: 4a7bfe58-7ca9-4fe8-b85f-a36bf6a7c8e6
+
+	/// Number of works currently on display, using the OnView column of Artworks.csv. Total Artworks filtered to on-view works.
+	measure 'Works On View' = CALCULATE([Total Artworks], FactArtwork[IsOnView] = TRUE())
+		formatString: #,0
+		displayFolder: Artworks
+		lineageTag: f7995281-fcd8-41e0-8d03-fb2597bbb623
+
+	/// Works On View as text with thousands separators, for card visuals that abbreviate numbers. Do not use on axes or in calculations.
+	measure 'Works On View (Text)' = FORMAT([Works On View], "#,0")
+		displayFolder: Card labels
+		lineageTag: 8176c118-0ce6-4603-b43f-ed2f980ffd88
+
+	column Placeholder
+		isHidden
+		lineageTag: b72314c9-fdae-4273-a302-2f3c879d9b75
+		isNameInferred
+		sourceColumn: [Placeholder]
+
+	partition _Measures = calculated
+		mode: import
+		source = ROW("Placeholder", BLANK())
+

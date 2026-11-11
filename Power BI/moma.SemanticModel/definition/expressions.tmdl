@@ -1,0 +1,12 @@
+/// Folder containing Artworks.csv and Artists.csv
+expression RawDataFolder = "d:\Traxccel\Learaning\maven MOMA Project\raw_data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0dfa1a84-cdeb-40fd-a0e1-d25e7f708794
+
+	annotation PBI_ResultType = Text
+
+/// Folder containing the Python-cleaned CSVs
+expression ProcessedFolder = "d:\Traxccel\Learaning\maven MOMA Project\processed" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 5cb21f7a-12c7-40c4-9be7-0d089712f185
+
+	annotation PBI_ResultType = Text
+

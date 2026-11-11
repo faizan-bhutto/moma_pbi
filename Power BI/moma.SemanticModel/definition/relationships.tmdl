@@ -1,0 +1,34 @@
+relationship FactArtwork_DepartmentKey_DimDepartment_DepartmentKey
+	fromColumn: FactArtwork.DepartmentKey
+	toColumn: DimDepartment.DepartmentKey
+
+relationship FactArtwork_ClassificationKey_DimClassification_ClassificationKey
+	fromColumn: FactArtwork.ClassificationKey
+	toColumn: DimClassification.ClassificationKey
+
+relationship FactArtwork_LocationKey_DimLocation_LocationKey
+	fromColumn: FactArtwork.LocationKey
+	toColumn: DimLocation.LocationKey
+
+relationship FactArtwork_AcquiredDate_DimDate_Date
+	fromColumn: FactArtwork.AcquiredDate
+	toColumn: DimDate.Date
+
+relationship BridgeArtworkArtist_ObjectID_FactArtwork_ObjectID
+	crossFilteringBehavior: bothDirections
+	fromColumn: BridgeArtworkArtist.ObjectID
+	toColumn: FactArtwork.ObjectID
+
+relationship BridgeArtworkArtist_ArtistKey_DimArtist_ArtistKey
+	crossFilteringBehavior: bothDirections
+	fromColumn: BridgeArtworkArtist.ArtistKey
+	toColumn: DimArtist.ArtistKey
+
+relationship FactArtwork_AcquisitionTypeKey_DimAcquisitionType_AcquisitionTypeKey
+	fromColumn: FactArtwork.AcquisitionTypeKey
+	toColumn: DimAcquisitionType.AcquisitionTypeKey
+
+relationship FactArtwork_MediumGroupKey_DimMediumGroup_MediumGroupKey
+	fromColumn: FactArtwork.MediumGroupKey
+	toColumn: DimMediumGroup.MediumGroupKey
+

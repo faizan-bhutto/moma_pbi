@@ -1,0 +1,39 @@
+table BridgeArtworkArtist
+	lineageTag: 764c9b2a-35eb-4d2e-8f38-8b375028486d
+
+	column ObjectID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7c60fa8e-5fa0-40a2-bf9a-4b07fe8ec6ee
+		summarizeBy: none
+		sourceColumn: ObjectID
+
+	column ArtistKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9c957a69-99c0-4bc4-8206-327530c52a15
+		summarizeBy: none
+		sourceColumn: ArtistKey
+
+	column ArtistPosition
+		dataType: int64
+		formatString: 0
+		lineageTag: 71aaa1e6-36dc-4848-9c9f-a8531d853ac2
+		summarizeBy: sum
+		sourceColumn: ArtistPosition
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BridgeArtworkArtist = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\BridgeArtworkArtist.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"ObjectID", Int64.Type}, {"ArtistKey", Int64.Type}, {"ArtistPosition", Int64.Type}}, "en-US")
+				in
+				    Typed
+

@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 281.86662944777891,
+            "y": 436.19861884039585
+          },
+          "nodeIndex": "BridgeArtworkArtist",
+          "nodeLineageTag": "764c9b2a-35eb-4d2e-8f38-8b375028486d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 0
+          },
+          "nodeIndex": "DimArtist",
+          "nodeLineageTag": "f3e3f79a-063b-4538-abcf-8ad8591a8516",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 74
+          },
+          "nodeIndex": "DimClassification",
+          "nodeLineageTag": "727ca67a-1974-4d16-b9db-58715ad9af8f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 2
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "68b24247-48f8-4a7d-84c5-f823958eb027",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 86
+          },
+          "nodeIndex": "DimDepartment",
+          "nodeLineageTag": "ef884b08-7512-45f6-9fb0-f81b42cc9a62",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 50
+          },
+          "nodeIndex": "DimLocation",
+          "nodeLineageTag": "173f8819-23a2-47c0-905c-47520ad6288d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 854.17211221494654,
+            "y": 431.25594305510174
+          },
+          "nodeIndex": "FactArtwork",
+          "nodeLineageTag": "1c65faab-5029-4cab-9b54-72e30f984b37",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1422.1333705522211,
+            "y": 265.62797152755087
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "9b4dcd01-162b-4d94-9e95-093fe46b9115",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1424.2667411044422,
+            "y": 301.62797152755087
+          },
+          "nodeIndex": "DimAcquisitionType",
+          "nodeLineageTag": "c063730d-9657-40fb-aa60-13f38e2bcf5a",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1426.4001116566633,
+            "y": 301.62797152755087
+          },
+          "nodeIndex": "DimMediumGroup",
+          "nodeLineageTag": "3a795267-e020-4de0-81af-9bb4c6e16ef0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 70.955543900968863,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

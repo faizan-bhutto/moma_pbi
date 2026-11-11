@@ -1,0 +1,341 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "9babd740b50694d178d9",
+  "position": {
+    "x": 17.422867513611614,
+    "y": 238.69328493647913,
+    "z": 4000,
+    "height": 947.80399274047181,
+    "width": 1885.1542649727767,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactArtwork"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "FactArtwork.Title",
+              "nativeQueryRef": "Title"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimArtist"
+                    }
+                  },
+                  "Property": "ArtistName"
+                }
+              },
+              "queryRef": "DimArtist.ArtistName",
+              "nativeQueryRef": "ArtistName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactArtwork"
+                    }
+                  },
+                  "Property": "AcquiredDate"
+                }
+              },
+              "queryRef": "FactArtwork.AcquiredDate",
+              "nativeQueryRef": "Acquisition Date",
+              "displayName": "Acquisition Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactArtwork"
+                    }
+                  },
+                  "Property": "AgeAtAcquisitionLabel"
+                }
+              },
+              "queryRef": "FactArtwork.AgeAtAcquisitionLabel",
+              "nativeQueryRef": "Age At Acquisition",
+              "displayName": "Age At Acquisition"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimLocation"
+                    }
+                  },
+                  "Property": "GalleryLabel"
+                }
+              },
+              "queryRef": "DimLocation.GalleryLabel",
+              "nativeQueryRef": "Floor - Gallery",
+              "displayName": "Floor - Gallery"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactArtwork"
+                    }
+                  },
+                  "Property": "Medium"
+                }
+              },
+              "queryRef": "FactArtwork.Medium",
+              "nativeQueryRef": "Medium"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDepartment"
+                    }
+                  },
+                  "Property": "Department"
+                }
+              },
+              "queryRef": "DimDepartment.Department",
+              "nativeQueryRef": "Department"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimClassification"
+                    }
+                  },
+                  "Property": "Classification"
+                }
+              },
+              "queryRef": "DimClassification.Classification",
+              "nativeQueryRef": "Classification"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimArtist"
+                  }
+                },
+                "Property": "ArtistName"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "561.3806978520948D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactArtwork.Title"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "260.13432551015796D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimArtist.ArtistName"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "307.0629440085475D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "FactArtwork.Medium"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117.17609262309678D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimClassification.Classification"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "207.20094609971528D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimDepartment.Department"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "146.34695904198995D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "DimLocation.GalleryLabel"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 1,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "preset": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BottomRight'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'AlternatingRowsNew'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "929abbc4e4b2eec60862",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FactArtwork"
+              }
+            },
+            "Property": "IsOnView"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  }
+}

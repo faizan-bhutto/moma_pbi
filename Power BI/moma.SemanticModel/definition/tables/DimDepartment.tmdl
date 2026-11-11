@@ -1,0 +1,28 @@
+table DimDepartment
+	lineageTag: ef884b08-7512-45f6-9fb0-f81b42cc9a62
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 80a0f530-da81-4dfe-a253-df74a53d8c86
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+	column Department
+		dataType: string
+		lineageTag: 39115f03-810f-44c8-b248-4c24da627cde
+		summarizeBy: none
+		sourceColumn: Department
+
+	partition DimDepartment = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimDepartment.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"DepartmentKey", Int64.Type}, {"Department", type text}}, "en-US")
+				in
+				    Typed
+

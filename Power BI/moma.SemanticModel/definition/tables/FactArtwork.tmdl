@@ -1,0 +1,270 @@
+table FactArtwork
+	lineageTag: 1c65faab-5029-4cab-9b54-72e30f984b37
+
+	column ObjectID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cc33747-9e42-4b91-963f-e260455af9be
+		summarizeBy: none
+		sourceColumn: ObjectID
+
+	column Title
+		dataType: string
+		lineageTag: f835dded-9d2e-440b-9e4e-db2ef480aa1d
+		summarizeBy: none
+		sourceColumn: Title
+
+	column AccessionNumber
+		dataType: string
+		lineageTag: 7e46dcf7-312e-4f79-8132-bc2d2a361e0d
+		summarizeBy: none
+		sourceColumn: AccessionNumber
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dabe6fe6-3fe8-4dad-bace-7cd37154d0ae
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+	column ClassificationKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7683fca2-9baf-4eb2-9302-9f401c2fc60b
+		summarizeBy: none
+		sourceColumn: ClassificationKey
+
+	column Medium
+		dataType: string
+		lineageTag: 834c9cf8-f319-47de-81d1-1a2ccefea273
+		summarizeBy: none
+		sourceColumn: Medium
+
+	column YearCreated
+		dataType: int64
+		formatString: 0
+		lineageTag: 965e56d6-189b-49c1-a898-3fa1848902ef
+		summarizeBy: sum
+		sourceColumn: YearCreated
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateQuality
+		dataType: string
+		lineageTag: 946056fc-ed2e-4159-b1c0-faab78e35342
+		summarizeBy: none
+		sourceColumn: DateQuality
+
+	column DateText
+		dataType: string
+		lineageTag: 2df9233b-c12e-4a2e-bfd9-28c948795c21
+		summarizeBy: none
+		sourceColumn: DateText
+
+	column AcquiredDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 986ca4d9-06ce-4b4c-9396-e19bbe4530ba
+		summarizeBy: none
+		sourceColumn: AcquiredDate
+
+	column YearAcquired
+		dataType: int64
+		formatString: 0
+		lineageTag: 28dd9456-de55-40f7-8e23-b4a91e10eb31
+		summarizeBy: sum
+		sourceColumn: YearAcquired
+
+		annotation SummarizationSetBy = Automatic
+
+	column ArtistCount
+		dataType: int64
+		formatString: 0
+		lineageTag: ab5a7cd7-bab6-4148-8d08-87745faefe8e
+		summarizeBy: sum
+		sourceColumn: ArtistCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasArtist
+		dataType: boolean
+		lineageTag: ca235fcb-e979-4299-acb3-c91dc035fb32
+		summarizeBy: none
+		sourceColumn: HasArtist
+
+	column IsMultiArtist
+		dataType: boolean
+		lineageTag: 7700c62b-61d6-4e40-bb03-e2e5116d8a52
+		summarizeBy: none
+		sourceColumn: IsMultiArtist
+
+	column IsCataloged
+		dataType: boolean
+		lineageTag: 3f1c46e7-f0ef-42fd-aeed-99e0673abe2e
+		summarizeBy: none
+		sourceColumn: IsCataloged
+
+	column IsOnView
+		dataType: boolean
+		lineageTag: 266062ce-5211-4821-bb15-89349984ba16
+		summarizeBy: none
+		sourceColumn: IsOnView
+
+	column LocationKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2f4e57b7-56e3-4ea2-a0d7-314d1bf86109
+		summarizeBy: none
+		sourceColumn: LocationKey
+
+	column CreditLine
+		dataType: string
+		lineageTag: d62c1c9a-28a8-47c9-9e00-4b76308f9a28
+		summarizeBy: none
+		sourceColumn: CreditLine
+
+	column Height_cm
+		dataType: double
+		lineageTag: 72fc13c6-2d94-4c0e-a00a-802b4ecb2eee
+		summarizeBy: sum
+		sourceColumn: Height_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Width_cm
+		dataType: double
+		lineageTag: af124fb9-9c4f-4566-b8c0-66913461b423
+		summarizeBy: sum
+		sourceColumn: Width_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Depth_cm
+		dataType: double
+		lineageTag: 1ae77e72-afa1-4435-991c-ad1018da47a7
+		summarizeBy: sum
+		sourceColumn: Depth_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Length_cm
+		dataType: double
+		lineageTag: 0d6f8564-3625-42d0-a780-4a3fd1ffceac
+		summarizeBy: sum
+		sourceColumn: Length_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Diameter_cm
+		dataType: double
+		lineageTag: 699da392-59e5-40e4-a50f-3cd41add28df
+		summarizeBy: sum
+		sourceColumn: Diameter_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weight_kg
+		dataType: double
+		lineageTag: 4a1bc3f6-08f8-41b9-8f6b-dca2528e88b2
+		summarizeBy: sum
+		sourceColumn: Weight_kg
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duration_sec
+		dataType: double
+		lineageTag: e92defe5-2f58-417e-9885-55fe22d39852
+		summarizeBy: sum
+		sourceColumn: Duration_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	column URL
+		dataType: string
+		lineageTag: e905beac-eb04-4cc8-bf50-488d2503a176
+		summarizeBy: none
+		sourceColumn: URL
+
+	column AgeAtAcquisition
+		dataType: int64
+		formatString: 0
+		lineageTag: b9495164-f340-401a-b554-70fa4d061d21
+		summarizeBy: sum
+		sourceColumn: AgeAtAcquisition
+
+		annotation SummarizationSetBy = Automatic
+
+	column HasValidDimensions
+		dataType: boolean
+		lineageTag: 612b2be7-ee0f-4399-b9fc-4043072296f5
+		summarizeBy: none
+		sourceColumn: HasValidDimensions
+
+	column Area_cm2
+		dataType: double
+		lineageTag: 106527a2-df66-4147-8fd6-0a4604d1d676
+		summarizeBy: sum
+		sourceColumn: Area_cm2
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcquiredDateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9543a159-d16c-4b32-ab5f-2ec27f198f08
+		summarizeBy: count
+		sourceColumn: AcquiredDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearCreatedLabel
+		dataType: string
+		lineageTag: 8a1ca371-24dd-42bb-be8d-a1883e36febe
+		summarizeBy: none
+		sourceColumn: YearCreatedLabel
+
+	column YearAcquiredLabel
+		dataType: string
+		lineageTag: 0ea07ebc-ff9e-4f1b-a722-f02d22b385c8
+		summarizeBy: none
+		sourceColumn: YearAcquiredLabel
+
+	column AgeAtAcquisitionLabel
+		dataType: string
+		lineageTag: afae9f42-7ba1-4235-bec9-e43dde85d2cb
+		summarizeBy: none
+		sourceColumn: AgeAtAcquisitionLabel
+
+	column AcquisitionTypeKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2b96bc81-22be-43fd-945e-306cb0ec4d22
+		summarizeBy: none
+		sourceColumn: AcquisitionTypeKey
+
+	column MediumGroupKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ec20ab63-d0a0-4110-a3b8-202d9f65da8e
+		summarizeBy: none
+		sourceColumn: MediumGroupKey
+
+	partition FactArtwork = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\FactArtwork.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    NumCols = {"YearCreated", "YearAcquired", "AgeAtAcquisition", "AcquiredDate", "AcquiredDateKey", "Height_cm", "Width_cm", "Depth_cm", "Length_cm", "Diameter_cm", "Weight_kg", "Duration_sec", "Area_cm2"},
+				    Blanks = Table.ReplaceValue(Headers, "", null, Replacer.ReplaceValue, NumCols),
+				    Typed = Table.TransformColumnTypes(Blanks, {{"ObjectID", Int64.Type}, {"Title", type text}, {"AccessionNumber", type text}, {"DepartmentKey", Int64.Type}, {"ClassificationKey", Int64.Type}, {"MediumGroupKey", Int64.Type}, {"Medium", type text}, {"YearCreated", Int64.Type}, {"DateQuality", type text}, {"DateText", type text}, {"AcquiredDate", type date}, {"YearAcquired", Int64.Type}, {"ArtistCount", Int64.Type}, {"HasArtist", type logical}, {"IsMultiArtist", type logical}, {"IsCataloged", type logical}, {"IsOnView", type logical}, {"LocationKey", Int64.Type}, {"AcquisitionTypeKey", Int64.Type}, {"CreditLine", type text}, {"Height_cm", type number}, {"Width_cm", type number}, {"Depth_cm", type number}, {"Length_cm", type number}, {"Diameter_cm", type number}, {"Weight_kg", type number}, {"Duration_sec", type number}, {"URL", type text}, {"AgeAtAcquisition", Int64.Type}, {"HasValidDimensions", type logical}, {"Area_cm2", type number}, {"AcquiredDateKey", Int64.Type}, {"YearCreatedLabel", type text}, {"YearAcquiredLabel", type text}, {"AgeAtAcquisitionLabel", type text}}, "en-US")
+				in
+				    Typed
+

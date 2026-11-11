@@ -1,0 +1,28 @@
+table DimAcquisitionType
+	lineageTag: c063730d-9657-40fb-aa60-13f38e2bcf5a
+
+	column AcquisitionTypeKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b922b6a9-e9e2-43bf-b2f8-15a0aee6d177
+		summarizeBy: none
+		sourceColumn: AcquisitionTypeKey
+
+	column AcquisitionType
+		dataType: string
+		lineageTag: fdca3bbf-3ee7-483d-ac10-e292c3626a90
+		summarizeBy: none
+		sourceColumn: AcquisitionType
+
+	partition DimAcquisitionType = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimAcquisitionType.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"AcquisitionTypeKey", Int64.Type}, {"AcquisitionType", type text}}, "en-US")
+				in
+				    Typed
+

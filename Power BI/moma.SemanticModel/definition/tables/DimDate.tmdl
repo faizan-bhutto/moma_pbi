@@ -1,0 +1,80 @@
+table DimDate
+	lineageTag: 68b24247-48f8-4a7d-84c5-f823958eb027
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isUnique
+		formatString: yyyy-mm-dd
+		lineageTag: deb4f814-4e21-484e-a70b-7b366d3f2442
+		summarizeBy: none
+		sourceColumn: Date
+
+	column DateKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f002f7a4-0e66-4911-9e3f-11ab4e62d91b
+		summarizeBy: none
+		sourceColumn: DateKey
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f0fbbef-ebac-49ac-be88-dadf8d16360b
+		summarizeBy: none
+		sourceColumn: Year
+
+	column Quarter
+		dataType: string
+		lineageTag: b22c7f1c-ffd4-42dd-9d9b-57d472155af8
+		summarizeBy: none
+		sourceColumn: Quarter
+
+	column MonthNumber
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2cab3f68-c927-4324-bcfe-44c63db0be25
+		summarizeBy: none
+		sourceColumn: MonthNumber
+
+	column MonthName
+		dataType: string
+		lineageTag: 8b141905-ff50-4949-b599-6c23be7b5ce0
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: MonthNumber
+
+	column Decade
+		dataType: string
+		lineageTag: 96bd74cf-e9a8-48f0-bc73-04b4dcb098ef
+		summarizeBy: none
+		sourceColumn: Decade
+
+	column Era
+		dataType: string
+		lineageTag: 7706301c-8908-4aff-a291-81cb3ae2416b
+		summarizeBy: none
+		sourceColumn: Era
+		sortByColumn: EraSort
+
+	column EraSort
+		dataType: int64
+		isHidden
+		lineageTag: d752fbe0-fe27-4339-9e66-f46d4f521cd8
+		summarizeBy: none
+		sourceColumn: EraSort
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(ProcessedFolder & "\DimDate.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Headers = Table.TransformColumnNames(Promoted, each Text.Replace(_, "#(feff)", "")),
+				    Typed = Table.TransformColumnTypes(Headers, {{"Date", type date}, {"DateKey", Int64.Type}, {"Year", Int64.Type}, {"Quarter", type text}, {"MonthNumber", Int64.Type}, {"MonthName", type text}, {"Decade", type text}, {"Era", type text}}, "en-US"),
+				    WithSort = Table.AddColumn(Typed, "EraSort", each if [Year] <= 1945 then 1 else if [Year] <= 1970 then 2 else if [Year] <= 2000 then 3 else 4, Int64.Type)
+				in
+				    WithSort
+
